@@ -30,8 +30,11 @@ $br->post($url, $params);
 
 $html = str_get_html($br->getResponseText());
 
+$res = array();
 // find all link
 foreach($html->find('.advanced tr td[width="95%"]') as $e) {
     $str = str_replace('<br>', "\n", $e->innertext);
-    echo $str . "\n\n\n\n\n\n\n\n\n\n\n\n";
+    $str =  strip_tags($str, '<b></b>');
+    $res[] = $str;
 }
+echo json_encode($res);
