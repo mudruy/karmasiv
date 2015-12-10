@@ -1,6 +1,6 @@
 <?php
 
-$query = $_GET['q'];
+$query = isset($_GET['q']) ? $_GET['q'] : '';
 
 defined('APPLICATION_PATH')
     || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/'));
