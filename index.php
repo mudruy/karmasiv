@@ -54,7 +54,7 @@ $parsedResult = $parser->process($res);
 
 if ($format == 'json')
 {
-	echo json_encode($res);
+	echo json_encode($parsedResult);
 }
 else
 {
