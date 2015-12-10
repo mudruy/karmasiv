@@ -2,6 +2,7 @@
 
 header('Content-Type: text/html; charset=utf-8');
 header("Access-Control-Allow-Origin: *");
+header("Content-Type: application/json; charset=utf-8");
 
 $query	= isset($_GET['q']) ? $_GET['q'] : 'Пушкин';
 $format	= isset($_GET['f']) ? $_GET['f'] : 'json';
