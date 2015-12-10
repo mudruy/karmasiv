@@ -1,5 +1,7 @@
 <?php
 
+$query = $_GET['q'];
+
 defined('APPLICATION_PATH')
     || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/'));
 
@@ -14,7 +16,7 @@ $params = array(
     'X_S21P03' => 'K=',
     'I21DBN' => 'IBIS',
     'P21DBN' => 'IBIS',
-    'X_S21STR' => 'Пушкин',
+    'X_S21STR' => $query,
     'X_S21P01' => '4',
     'X_S21P02' => '1',
     'X_S21LOG' => '1',
