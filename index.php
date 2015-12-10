@@ -1,14 +1,20 @@
 <?php
 
-$query = isset($_GET['q']) ? $_GET['q'] : '';
+header('Content-Type: text/html; charset=utf-8');
+header("Access-Control-Allow-Origin: *");
+
+$query	= isset($_GET['q']) ? $_GET['q'] : 'Пушкин';
+$format	= isset($_GET['f']) ? $_GET['f'] : 'json';
 
 defined('APPLICATION_PATH')
     || define('APPLICATION_PATH', realpath(dirname(__FILE__) . '/'));
 
 
+include 'Logger.php';
 include 'BrowserAdapter.php';
 include 'BrowserCurl.php';
 include 'simplehtmldom/simple_html_dom.php';
+include 'Parser.php';
 
 $br = new Ap_Browser_BrowserCurl();
 $url = 'http://193.27.243.130/cgi-bin/irbis64r_91/cgiirbis_64.exe';
@@ -33,10 +39,23 @@ $br->post($url, $params);
 $html = str_get_html($br->getResponseText());
 
 $res = array();
+
 // find all link
-foreach($html->find('.advanced tr td[width="95%"]') as $e) {
+foreach($html->find('.advanced tr td[width="95%"]') as $e)
+{
     $str = str_replace('<br>', "\n", $e->innertext);
     $str =  strip_tags($str, '<b></b>');
     $res[] = $str;
 }
-echo json_encode($res);
+
+$parser = new Parser();
+$parsedResult = $parser->process($res);
+
+if ($format == 'json')
+{
+	echo json_encode($res);
+}
+else
+{
+	Logger::dump($parsedResult);
+}
